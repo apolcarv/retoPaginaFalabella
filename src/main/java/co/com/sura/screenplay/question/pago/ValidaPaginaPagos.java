@@ -14,7 +14,7 @@ public class ValidaPaginaPagos implements Question {
                 .forNoMoreThan(Constant.MIDDLE).seconds());
         return true;
     }
-    public static ValidaPaginaPagos estoyPaginaDePagos(){
+    public static ValidaPaginaPagos estoyEnLaPaginaDePagos(){
         return new ValidaPaginaPagos();
     }
 }

@@ -15,7 +15,7 @@ public class Abrir implements Task {
 
     @Override
     public <T extends Actor> void performAs(T actor) {
-        String paginaWebUrl = EnvironmentSpecificConfiguration.from(environmentVariables).getProperty(Constant.PAGINA_WEB_URL_AUTOMATION_PRACTICE);
+        String paginaWebUrl = EnvironmentSpecificConfiguration.from(environmentVariables).getProperty(Constant.PAGINA_WEB_URL);
         actor.attemptsTo(Open.url(paginaWebUrl));
     }
     public static Performable navegadorWebURL(){

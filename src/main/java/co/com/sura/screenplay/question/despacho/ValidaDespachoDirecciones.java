@@ -6,7 +6,7 @@ import net.serenitybdd.screenplay.Question;
 import net.serenitybdd.screenplay.matchers.WebElementStateMatchers;
 import net.serenitybdd.screenplay.waits.WaitUntil;
 
-import static co.com.sura.screenplay.ui.despacho.DespechoPage.TXT_DIRECCION;
+import static co.com.sura.screenplay.ui.despacho.DespachoPage.TXT_DIRECCION;
 
 public class ValidaDespachoDirecciones implements Question {
     @Override

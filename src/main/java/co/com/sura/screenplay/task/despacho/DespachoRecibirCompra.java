@@ -7,7 +7,7 @@ import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.Tasks;
 import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.waits.WaitUntil;
-import static co.com.sura.screenplay.ui.despacho.DespechoPage.BUTTON_CONTINUAR_IR_A_PAGAR;
+import static co.com.sura.screenplay.ui.despacho.DespachoPage.BUTTON_CONTINUAR_IR_A_PAGAR;
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isVisible;
 
 public class DespachoRecibirCompra implements Task {

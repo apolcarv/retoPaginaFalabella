@@ -12,7 +12,7 @@ import net.serenitybdd.screenplay.actions.Enter;
 import net.serenitybdd.screenplay.waits.WaitUntil;
 import java.util.Locale;
 import java.util.Random;
-import static co.com.sura.screenplay.ui.despacho.DespechoPage.*;
+import static co.com.sura.screenplay.ui.despacho.DespachoPage.*;
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isVisible;
 
 public class DespachoDirecciones implements Task {

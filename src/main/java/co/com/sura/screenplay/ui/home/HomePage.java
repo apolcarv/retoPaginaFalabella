@@ -14,7 +14,6 @@ public class HomePage extends PageObject {
     public static final Target INPUT_CAMPO_BUSQUEDA = Target.the("" + Constant.EL_USUARIO + " " + "inserta el criterio de preferencia de busqueda")
             .located(By.id("testId-SearchBar-Input"));
 
-
     public static final Target BUTTON_ORDENAR_POR = Target.the("" + Constant.EL_USUARIO + " " + "boton para odenar los productos por:")
             .located(By.id("testId-Dropdown-desktop-button"));
 

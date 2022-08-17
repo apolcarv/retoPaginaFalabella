@@ -1,7 +1,6 @@
 package stepDefinition;
 
 import co.com.sura.screenplay.helpers.Constant;
-import co.com.sura.screenplay.helpers.TestInfo;
 import co.com.sura.screenplay.question.bolsaCompras.ValidarBolsaCompras;
 import co.com.sura.screenplay.question.despacho.ValidaDespachoDirecciones;
 import co.com.sura.screenplay.question.despacho.ValidarDespacho;
@@ -17,10 +16,9 @@ import io.cucumber.java.Before;
 import io.cucumber.java.es.Cuando;
 import io.cucumber.java.es.Dado;
 import io.cucumber.java.es.Entonces;
+import net.serenitybdd.screenplay.actions.Open;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actors.OnlineCast;
-
-
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorCalled;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
@@ -28,17 +26,15 @@ import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
 public class ProcesoDeCompraProductoFalabellaStep {
 
 
-    private TestInfo testInfo;
-
     @Before
     public void setTheStage(){
         OnStage.setTheStage(new OnlineCast());
     }
 
-    @Dado("que el usuario ingresa al portal de falabella colombia para la compra de un producto {string} {string}")
-    public void queElUsuarioIngresaAlPortalDeFalabellaColombiaParaLaCompraDeUnProducto(String escenario, String funcionalidad) {
-        TestInfo testInfo = new TestInfo(escenario,funcionalidad);
-        theActorCalled(Constant.MR_ROBOT).attemptsTo(Abrir.navegadorWebURL());
+    @Dado("que el usuario ingresa al portal de falabella colombia para la compra de un producto")
+    public void queElUsuarioIngresaAlPortalDeFalabellaColombiaParaLaCompraDeUnProducto() {
+      /** theActorCalled(Constant.MR_ROBOT).attemptsTo(Abrir.navegadorWebURL()); */
+        theActorCalled(Constant.MR_ROBOT).attemptsTo(Open.browserOn().thePageNamed(Constant.PAGINA_WEB_URL));
        /**  theActorCalled(Constant.MR_ROBOT).attemptsTo(PopUp.CerrarPopUp()); */
         theActorInTheSpotlight().should(seeThat(ValidarHome.validarLogoFalabella()));
 
@@ -59,9 +55,8 @@ public class ProcesoDeCompraProductoFalabellaStep {
     }
     @Entonces("el usuario llega hasta el final de la compra del producto")
     public void elUsuarioLlegaHastaElFinalDeLaCompraDelProducto() {
-        theActorInTheSpotlight().should(seeThat(ValidaPaginaPagos.estoyPaginaDePagos()));
+        theActorInTheSpotlight().should(seeThat(ValidaPaginaPagos.estoyEnLaPaginaDePagos()));
     }
-
 
 
 }

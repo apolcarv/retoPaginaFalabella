@@ -5,7 +5,7 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Question;
 import net.serenitybdd.screenplay.matchers.WebElementStateMatchers;
 import net.serenitybdd.screenplay.waits.WaitUntil;
-import static co.com.sura.screenplay.ui.despacho.DespechoPage.TXT_IR_A_PAGAR;
+import static co.com.sura.screenplay.ui.despacho.DespachoPage.TXT_IR_A_PAGAR;
 
 public class ValidaDespachoRecibirCompra implements Question {
     @Override

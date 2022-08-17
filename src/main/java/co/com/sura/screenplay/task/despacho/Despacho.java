@@ -10,7 +10,7 @@ import net.serenitybdd.screenplay.Tasks;
 import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.waits.WaitUntil;
 
-import static co.com.sura.screenplay.ui.despacho.DespechoPage.*;
+import static co.com.sura.screenplay.ui.despacho.DespachoPage.*;
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isVisible;
 
 public class Despacho implements Task {

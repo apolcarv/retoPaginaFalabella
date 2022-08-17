@@ -2,14 +2,13 @@ package co.com.sura.screenplay.helpers;
 
 
 import com.github.javafaker.Faker;
-import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
-import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
+import static co.com.sura.screenplay.ui.despacho.BusquedaProductoPage.getObtenerlocalizadorEspecialList;
+import static co.com.sura.screenplay.ui.despacho.BusquedaProductoPage.getObtenerlocalizadorList;
+import static co.com.sura.screenplay.ui.despacho.DespachoPage.*;
 
 
 public class Utils {
@@ -26,73 +25,49 @@ public class Utils {
         return datosDeBusqueda;
     }
 
-    public static List<WebElement> obtenerlocalizadorList() {
-        String xpath = Constant.LOCALIZADOR_TIPOLIST_DATA_POD_CANTIDAD_PRODUCTOS_GENERAL;
-        return BrowseTheWeb.as(theActorInTheSpotlight()).getDriver().findElements(By.xpath(xpath));
-    }
-
     public static int obtenerNumeroRandonParaSeleccionarUnProducto() {
-        return faker.number().numberBetween(1, obtenerlocalizadorList().size());
+        return faker.number().numberBetween(1, getObtenerlocalizadorList().size());
     }
 
     public static String armarLocalizadorRamdonCantidadProducto(int numeroRandomDelProducto) {
-        String xpathRandom = Constant.LOCALIZADOR_TIPOLIST_DATA_POD_CANTIDAD_PRODUCTOS_SELECCIONANDO_PRODUCTO_PREFERENCIA+"["+numeroRandomDelProducto+"]";
-     return xpathRandom;
-    }
-
-    public static List<WebElement> obtenerlocalizadorEspecialList() {
-        String xpath = Constant.LOCALIZADOR_TIPOLIST_DATA_POD_CANTIDAD_PRODUCTOS_ESPECIAL;
-        return BrowseTheWeb.as(theActorInTheSpotlight()).getDriver().findElements(By.xpath(xpath));
+        String xpathRandom = "//div[@class='jsx-4001457643 search-results-4-grid grid-pod']"+"["+numeroRandomDelProducto+"]";
+        return xpathRandom;
     }
 
     public static int obtenerNumeroRandonParaSeleccionarUnProductoEspecial() {
-        return faker.number().numberBetween(2, obtenerlocalizadorEspecialList().size());
+        return faker.number().numberBetween(2, getObtenerlocalizadorEspecialList().size());
     }
 
     public static String armarLocalizadorRamdonCantidadProductoEspecial(int numeroRandomDelProductoEspecial) {
-        String xpathEspecialRandom = Constant.LOCALIZADOR_TIPOLIST_DATA_POD_CANTIDAD_PRODUCTOS_SELECCIONANDO_PRODUCTO_PREFERENCIA_ESPECIAL+"["+numeroRandomDelProductoEspecial+"]";
+        String xpathEspecialRandom = "//div[@class='jsx-4001457643 search-results-list']"+"["+numeroRandomDelProductoEspecial+"]";
         return xpathEspecialRandom;
     }
 
-    public static List<WebElement> obtenerlocalizadorDepartamento() {
-        String xpath = Constant.LOCALIZADOR_SELECT_LISTDOWN_DEPARTAMENTO;
-        return BrowseTheWeb.as(theActorInTheSpotlight()).getDriver().findElements(By.xpath(xpath));
-    }
-
     public static int obtenerNumeroRandonParaSeleccionarDepartamento( ) {
-        return faker.number().numberBetween(2, obtenerlocalizadorDepartamento().size());
+        return faker.number().numberBetween(2, getObtenerlocalizadorDepartamento().size());
     }
 
     public static String armarLocalizadorRamdonDepartamento(int numeroRandomDelDepartamento) {
-        String xpathRandom = Constant.LOCALIZADOR_SELECT_LISTDOWN_DEPARTAMENTO+"["+numeroRandomDelDepartamento+"]";
+        String xpathRandom = "//select[@id='region']//option"+"["+numeroRandomDelDepartamento+"]";
         return xpathRandom;
-    }
-
-    public static List<WebElement> obtenerlocalizadorCiudad() {
-        String xpath = Constant.LOCALIZADOR_SELECT_LISTDOWN_CIUDAD;
-        return BrowseTheWeb.as(theActorInTheSpotlight()).getDriver().findElements(By.xpath(xpath));
     }
 
     public static int obtenerNumeroRandonParaSeleccionarCiudad() {
-        return faker.number().numberBetween(2, obtenerlocalizadorCiudad().size());
+        return faker.number().numberBetween(2, getObtenerlocalizadorCiudad().size());
     }
 
     public static String armarLocalizadorRamdonCiudad(int numeroRandomDelCiudad) {
-        String xpathRandom = Constant.LOCALIZADOR_SELECT_LISTDOWN_CIUDAD+"["+numeroRandomDelCiudad+"]";
+        String xpathRandom ="//select[@id='ciudad']//option"+"["+numeroRandomDelCiudad+"]";
         return xpathRandom;
     }
 
-    public static List<WebElement> obtenerlocalizadorBarrio() {
-        String xpath = Constant.LOCALIZADOR_SELECT_LISTDOWN_BARRIO;
-        return BrowseTheWeb.as(theActorInTheSpotlight()).getDriver().findElements(By.xpath(xpath));
-    }
 
     public static int obtenerNumeroRandonParaSeleccionarBarrio() {
-        return faker.number().numberBetween(2, obtenerlocalizadorBarrio().size());
+        return faker.number().numberBetween(2, getObtenerlocalizadorBarrio().size());
     }
 
     public static String armarLocalizadorRamdonBarrio(int numeroRandomDelBarrio) {
-        String xpathRandom = Constant.LOCALIZADOR_SELECT_LISTDOWN_BARRIO+"["+numeroRandomDelBarrio+"]";
+        String xpathRandom = "//select[@id='comuna']//option"+"["+numeroRandomDelBarrio+"]";
         return xpathRandom;
     }
 
@@ -103,8 +78,7 @@ public class Utils {
     }
 
     public static List<String> generarTipoDePropiedad() {
-        datotipoPropiedad.add(faker.options().option("Torre", "Apartamento", "Conjunto", "Oficina",
-                "Condominio"));
+        datotipoPropiedad.add(faker.options().option("Torre", "Apartamento", "Conjunto", "Oficina", "Condominio"));
         ManagerLog.imprimirExito(LOG_CLASE + "la generacion del tipo de propiedad se genero exitosamente");
         return datotipoPropiedad;
     }

@@ -16,7 +16,7 @@ import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isVisi
 public class BolsaCompra implements Task {
     @Override
     public <T extends Actor> void performAs(T actor) {
-        String cantidadDeProductosEnlaBolsa = BrowseTheWeb.as(theActorInTheSpotlight()).getDriver().findElement(By.xpath(Constant.LOCALIZADOR_TEXTO_PAG_CARGADA_CANTIDAD_DE_PRODUCTOS_EN_LA_BOLSA)).getText();
+        String cantidadDeProductosEnlaBolsa = BrowseTheWeb.as(theActorInTheSpotlight()).getDriver().findElement(By.xpath("//span[@class='count-number count notranslate']")).getText();
         cantidadDeProductosEnlaBolsa.replaceAll("\\(","");
         actor.attemptsTo(WaitUntil.the(BUTTON_IR_A_COMPRAR, isVisible()).forNoMoreThan(Constant.INTERMEDIATE).seconds(),
                 Click.on(BUTTON_IR_A_COMPRAR));

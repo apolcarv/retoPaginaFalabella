@@ -11,12 +11,18 @@ import net.serenitybdd.screenplay.Performable;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.Tasks;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
-import net.serenitybdd.screenplay.actions.Click;
-import net.serenitybdd.screenplay.actions.Enter;
+import net.serenitybdd.screenplay.actions.*;
+import net.serenitybdd.screenplay.actors.OnStage;
+import net.serenitybdd.screenplay.questions.Text;
 import net.serenitybdd.screenplay.waits.WaitUntil;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+
+import static co.com.sura.screenplay.ui.despacho.BusquedaProductoPage.*;
 import static co.com.sura.screenplay.ui.home.HomePage.*;
+import static net.serenitybdd.screenplay.actors.OnStage.aNewActor;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isVisible;
 
@@ -26,29 +32,36 @@ public class Busqueda implements Task {
     @Override
     public <T extends Actor> void performAs(T actor) {
 
-        String nombreProducto = Utils.generarNombreDelProductoParaBusqueda().get(0);
+        String nombreProducto =  "Celulares"; /**Utils.generarNombreDelProductoParaBusqueda().get(0); */
         actor.attemptsTo(WaitUntil.the(INPUT_CAMPO_BUSQUEDA, isVisible()).forNoMoreThan(Constant.SHORT).seconds(),
                 Enter.theValue(nombreProducto).into(HomePage.INPUT_CAMPO_BUSQUEDA).thenHit(Keys.ENTER));
 
         if (BUTTON_ORDENAR_POR.isVisibleFor(actor)) {
-            /** Validacion Paginacion
+            /**  Validacion Paginacion
              String textoCrearRegistro = Constant.TEXTO_PAG_CARGADA_NUMERO_PAGINAS;
-             String validarPagCargada = String.valueOf(BrowseTheWeb.as(theActorInTheSpotlight()).getDriver().findElement(By.xpath(Constant.LOCALIZADOR_TEXTO_PAG_CARGADA_NUMERO_PAGINAS)).getText());
+             String validarPagCargada = actor.asksFor(Text.of(TEXT_NUMERO_PAGINAS));
              assertThat(textoCrearRegistro, containsString(validarPagCargada));
              */
             if (nombreProducto != null && nombreProducto.equals(Constant.PRODUCTO_ESPECIAL)) {
                 int numeroRandomDelProductoEspecial = Utils.obtenerNumeroRandonParaSeleccionarUnProductoEspecial();
                 String xpathEspecialRandom = Utils.armarLocalizadorRamdonCantidadProductoEspecial(numeroRandomDelProductoEspecial);
-                Time.seconds(Constant.SHORT);
+                Time.waiting(Constant.SHORT);
                 actor.attemptsTo(Click.on(xpathEspecialRandom));
 
             } else {
                 int numeroRandomDelProducto = Utils.obtenerNumeroRandonParaSeleccionarUnProducto();
                 String xpathRandom = Utils.armarLocalizadorRamdonCantidadProducto(numeroRandomDelProducto);
+                Time.waiting(Constant.SHORT);
+                WebElement moveToMouse = BrowseTheWeb.as(theActorInTheSpotlight()).getDriver().findElement(org.openqa.selenium.By.xpath(xpathRandom));
+                new Actions(BrowseTheWeb.as(theActorInTheSpotlight()).getDriver())
+                        .moveToElement(moveToMouse)
+                        .perform();
+                Time.waiting(Constant.SHORT);
+
                 actor.attemptsTo(Click.on(xpathRandom));
-                Time.seconds(Constant.SHORT);
-                /**    String textoSeguirComprando = Constant.TEXTO_PAG_CARGADA_SEGUIR_COMPRANDO;
-                 String validarPagCargada = String.valueOf(BrowseTheWeb.as(theActorInTheSpotlight()).getDriver().findElement(By.xpath(Constant.LOCALIZADOR_TEXTO_PAG_CARGADA_SEGUIR_COMPRANDO)).getText());
+                Time.waiting(Constant.SHORT);
+                /** String textoSeguirComprando = Constant.TEXTO_PAG_CARGADA_SEGUIR_COMPRANDO;
+                 String validarPagCargada = actor.asksFor(Text.of(TEXT_SEGUIR_COMPRANDO));
                  if (validarPagCargada != null && validarPagCargada.equals(textoSeguirComprando)){
                  actor.attemptsTo(Click.on(BUTTON_AGREGAR_BOLSA));
                  actor.attemptsTo(Click.on(BUTTON_VER_BOLSA_COMPRAS));
@@ -63,14 +76,13 @@ public class Busqueda implements Task {
                     Click.on(BUTTON_VER_BOLSA_COMPRAS));
 
         } else {
-            String txt = String.valueOf(BrowseTheWeb.as(theActorInTheSpotlight()).getDriver().findElement(By.xpath(Constant.LOCALIZADOR_TEXTO_PAG_CARGADA_NO_ENCUENTRA_RESULTADOS)).getText());
+            String txt = actor.asksFor(Text.of(TEXT_NO_HAY_RESULTADOS));
 
             if (txt != null && txt.equals(Constant.TEXTO_PAG_CARGADA_NO_ENCUENTRA_RESULTADOS + " " + "'" + nombreProducto + "'")) {
                 ManagerLog.imprimirExito("" + Constant.EL_USUARIO + " " + "realizo la busqueda del producto de preferencia, PERO NO se encontraron resultados");
                 BrowseTheWeb.as(theActorInTheSpotlight()).getDriver().quit();
             }
         }
-
     }
 
     public static Performable busquedaProductos() {
