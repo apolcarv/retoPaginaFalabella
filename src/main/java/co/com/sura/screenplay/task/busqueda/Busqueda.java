@@ -32,7 +32,7 @@ public class Busqueda implements Task {
     @Override
     public <T extends Actor> void performAs(T actor) {
 
-        String nombreProducto =  "Celulares"; /**Utils.generarNombreDelProductoParaBusqueda().get(0); */
+        String nombreProducto = /**Utils.generarNombreDelProductoParaBusqueda().get(0); */ "Celulares";
         actor.attemptsTo(WaitUntil.the(INPUT_CAMPO_BUSQUEDA, isVisible()).forNoMoreThan(Constant.SHORT).seconds(),
                 Enter.theValue(nombreProducto).into(HomePage.INPUT_CAMPO_BUSQUEDA).thenHit(Keys.ENTER));
 
@@ -57,8 +57,7 @@ public class Busqueda implements Task {
                         .moveToElement(moveToMouse)
                         .perform();
                 Time.waiting(Constant.SHORT);
-
-                actor.attemptsTo(Click.on(xpathRandom));
+              //  actor.attemptsTo(Click.on(xpathRandom));
                 Time.waiting(Constant.SHORT);
                 /** String textoSeguirComprando = Constant.TEXTO_PAG_CARGADA_SEGUIR_COMPRANDO;
                  String validarPagCargada = actor.asksFor(Text.of(TEXT_SEGUIR_COMPRANDO));
@@ -77,7 +76,6 @@ public class Busqueda implements Task {
 
         } else {
             String txt = actor.asksFor(Text.of(TEXT_NO_HAY_RESULTADOS));
-
             if (txt != null && txt.equals(Constant.TEXTO_PAG_CARGADA_NO_ENCUENTRA_RESULTADOS + " " + "'" + nombreProducto + "'")) {
                 ManagerLog.imprimirExito("" + Constant.EL_USUARIO + " " + "realizo la busqueda del producto de preferencia, PERO NO se encontraron resultados");
                 BrowseTheWeb.as(theActorInTheSpotlight()).getDriver().quit();
