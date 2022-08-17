@@ -57,7 +57,7 @@ public class Busqueda implements Task {
                         .moveToElement(moveToMouse)
                         .perform();
                 Time.waiting(Constant.SHORT);
-              //  actor.attemptsTo(Click.on(xpathRandom));
+                actor.attemptsTo(Click.on(xpathRandom));
                 Time.waiting(Constant.SHORT);
                 /** String textoSeguirComprando = Constant.TEXTO_PAG_CARGADA_SEGUIR_COMPRANDO;
                  String validarPagCargada = actor.asksFor(Text.of(TEXT_SEGUIR_COMPRANDO));
